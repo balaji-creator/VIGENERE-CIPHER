@@ -30,7 +30,41 @@ STEP-8: Repeat the above steps to generate the entire cipher text.
 
 
 ## PROGRAM
+```
+#include <stdio.h>
+#include <ctype.h>
+#include <string.h>
+
+int main(){
+    char t[100], k[50]; int i,j=0;
+
+    printf("Text: "); fgets(t,100,stdin);
+    printf("Key: "); fgets(k,50,stdin);
+
+    k[strcspn(k,"\n")]=0;
+
+    // Encryption
+    for(i=0;t[i];i++){
+        if(isalpha(t[i])){
+            t[i]=((toupper(t[i])-'A'+toupper(k[j])-'A')%26)+'A';
+            j=(j+1)%strlen(k);
+        }
+    }
+    printf("\nEnc:%s",t);
+
+    // Decryption
+    j=0;
+    for(i=0;t[i];i++){
+        if(isalpha(t[i])){
+            t[i]=((toupper(t[i])-'A'-(toupper(k[j])-'A')+26)%26)+'A';
+            j=(j+1)%strlen(k);
+        }
+    }
+    printf("\nDec:%s",t);
+}
+```
 
 ## OUTPUT
+![alt text](image.png)
 
 ## RESULT
